@@ -1,0 +1,48 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yandimirov.mapper.PersonMapper">
+    <resultMap id="person" type="com.yandimirov.model.Person">
+        <id property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+    </resultMap>
+
+    <select id="findAll"
+            resultMap="person">
+        select p.id
+              ,p.first_name
+              ,p.last_name
+          from persons p
+    </select>
+
+    <select id="findOne"
+            parameterType="java.lang.Long"
+            resultMap="person">
+        select p.id
+              ,p.first_name
+              ,p.last_name
+          from persons p
+         where p.id = #{id}
+    </select>
+
+    <insert id="insert"
+            parameterType="com.yandimirov.model.Person"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id">
+        insert into persons(first_name, last_name)
+        values(#{firstName}, #{lastName})
+    </insert>
+
+    <update id="update"
+            parameterType="com.yandimirov.model.Person"
+            keyColumn="id"
+            keyProperty="id">
+        update persons set first_name = #{firstName}, last_name = #{lastName} where id = #{id}
+    </update>
+
+    <delete id="delete"
+            parameterType="java.lang.Long">
+        delete from persons where id = #{id}
+    </delete>
+
+</mapper>
