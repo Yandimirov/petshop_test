@@ -1,4 +1,4 @@
 .idea/
 target/
 PetshopTest.iml
-*database.properties
+src/main/resources/database.properties
